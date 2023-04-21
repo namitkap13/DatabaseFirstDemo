@@ -1,0 +1,535 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="GETProjctModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="image">
+          <Key>
+            <PropertyRef Name="imageId" />
+          </Key>
+          <Property Name="imageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="imageName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="seriesId" Type="int" Nullable="false" />
+          <Property Name="TimeStamp" Type="date" />
+        </EntityType>
+        <EntityType Name="patient">
+          <Key>
+            <PropertyRef Name="patientId" />
+          </Key>
+          <Property Name="patientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstName" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="lastName" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="DOB" Type="date" Nullable="false" />
+          <Property Name="gender" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="report">
+          <Key>
+            <PropertyRef Name="reportId" />
+          </Key>
+          <Property Name="reportId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="reportName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="seriesId" Type="int" Nullable="false" />
+          <Property Name="TimeStamp" Type="date" />
+        </EntityType>
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="roleId" />
+          </Key>
+          <Property Name="roleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="roleName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="series">
+          <Key>
+            <PropertyRef Name="seriesId" />
+          </Key>
+          <Property Name="seriesId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="seriesName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="studyId" Type="int" Nullable="false" />
+          <Property Name="TimeStamp" Type="date" />
+        </EntityType>
+        <EntityType Name="study">
+          <Key>
+            <PropertyRef Name="studyId" />
+          </Key>
+          <Property Name="studyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="studyName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="patientId" Type="int" Nullable="false" />
+          <Property Name="TimeStamp" Type="date" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="firstName" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="lastName" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="gender" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="DOB" Type="date" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="roleId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="video">
+          <Key>
+            <PropertyRef Name="videoId" />
+          </Key>
+          <Property Name="videoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="videoName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="seriesId" Type="int" Nullable="false" />
+          <Property Name="TimeStamp" Type="date" />
+        </EntityType>
+        <Association Name="FK__image__seriesId__46E78A0C">
+          <End Role="series" Type="Self.series" Multiplicity="1" />
+          <End Role="image" Type="Self.image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="series">
+              <PropertyRef Name="seriesId" />
+            </Principal>
+            <Dependent Role="image">
+              <PropertyRef Name="seriesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__report__seriesId__4CA06362">
+          <End Role="series" Type="Self.series" Multiplicity="1" />
+          <End Role="report" Type="Self.report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="series">
+              <PropertyRef Name="seriesId" />
+            </Principal>
+            <Dependent Role="report">
+              <PropertyRef Name="seriesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__series__studyId__440B1D61">
+          <End Role="study" Type="Self.study" Multiplicity="1" />
+          <End Role="series" Type="Self.series" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="study">
+              <PropertyRef Name="studyId" />
+            </Principal>
+            <Dependent Role="series">
+              <PropertyRef Name="studyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__study__patientId__412EB0B6">
+          <End Role="patient" Type="Self.patient" Multiplicity="1" />
+          <End Role="study" Type="Self.study" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="patient">
+              <PropertyRef Name="patientId" />
+            </Principal>
+            <Dependent Role="study">
+              <PropertyRef Name="patientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__users__roleId__3E52440B">
+          <End Role="role" Type="Self.role" Multiplicity="1" />
+          <End Role="users" Type="Self.users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="role">
+              <PropertyRef Name="roleId" />
+            </Principal>
+            <Dependent Role="users">
+              <PropertyRef Name="roleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__video__seriesId__49C3F6B7">
+          <End Role="series" Type="Self.series" Multiplicity="1" />
+          <End Role="video" Type="Self.video" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="series">
+              <PropertyRef Name="seriesId" />
+            </Principal>
+            <Dependent Role="video">
+              <PropertyRef Name="seriesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GETProjctModelStoreContainer">
+          <EntitySet Name="image" EntityType="Self.image" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="patient" EntityType="Self.patient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="report" EntityType="Self.report" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="role" EntityType="Self.role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="series" EntityType="Self.series" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="study" EntityType="Self.study" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="video" EntityType="Self.video" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__image__seriesId__46E78A0C" Association="Self.FK__image__seriesId__46E78A0C">
+            <End Role="series" EntitySet="series" />
+            <End Role="image" EntitySet="image" />
+          </AssociationSet>
+          <AssociationSet Name="FK__report__seriesId__4CA06362" Association="Self.FK__report__seriesId__4CA06362">
+            <End Role="series" EntitySet="series" />
+            <End Role="report" EntitySet="report" />
+          </AssociationSet>
+          <AssociationSet Name="FK__series__studyId__440B1D61" Association="Self.FK__series__studyId__440B1D61">
+            <End Role="study" EntitySet="study" />
+            <End Role="series" EntitySet="series" />
+          </AssociationSet>
+          <AssociationSet Name="FK__study__patientId__412EB0B6" Association="Self.FK__study__patientId__412EB0B6">
+            <End Role="patient" EntitySet="patient" />
+            <End Role="study" EntitySet="study" />
+          </AssociationSet>
+          <AssociationSet Name="FK__users__roleId__3E52440B" Association="Self.FK__users__roleId__3E52440B">
+            <End Role="role" EntitySet="role" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
+          <AssociationSet Name="FK__video__seriesId__49C3F6B7" Association="Self.FK__video__seriesId__49C3F6B7">
+            <End Role="series" EntitySet="series" />
+            <End Role="video" EntitySet="video" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GETProjctModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="image">
+          <Key>
+            <PropertyRef Name="imageId" />
+          </Key>
+          <Property Name="imageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="imageName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="seriesId" Type="Int32" Nullable="false" />
+          <Property Name="TimeStamp" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="series" Relationship="Self.FK__image__seriesId__46E78A0C" FromRole="image" ToRole="series" />
+        </EntityType>
+        <EntityType Name="patient">
+          <Key>
+            <PropertyRef Name="patientId" />
+          </Key>
+          <Property Name="patientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="lastName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="studies" Relationship="Self.FK__study__patientId__412EB0B6" FromRole="patient" ToRole="study" />
+        </EntityType>
+        <EntityType Name="report">
+          <Key>
+            <PropertyRef Name="reportId" />
+          </Key>
+          <Property Name="reportId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="reportName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="seriesId" Type="Int32" Nullable="false" />
+          <Property Name="TimeStamp" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="series" Relationship="Self.FK__report__seriesId__4CA06362" FromRole="report" ToRole="series" />
+        </EntityType>
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="roleId" />
+          </Key>
+          <Property Name="roleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="roleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="users" Relationship="Self.FK__users__roleId__3E52440B" FromRole="role" ToRole="users" />
+        </EntityType>
+        <EntityType Name="series">
+          <Key>
+            <PropertyRef Name="seriesId" />
+          </Key>
+          <Property Name="seriesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="seriesName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="studyId" Type="Int32" Nullable="false" />
+          <Property Name="TimeStamp" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="images" Relationship="Self.FK__image__seriesId__46E78A0C" FromRole="series" ToRole="image" />
+          <NavigationProperty Name="reports" Relationship="Self.FK__report__seriesId__4CA06362" FromRole="series" ToRole="report" />
+          <NavigationProperty Name="study" Relationship="Self.FK__series__studyId__440B1D61" FromRole="series" ToRole="study" />
+          <NavigationProperty Name="videos" Relationship="Self.FK__video__seriesId__49C3F6B7" FromRole="series" ToRole="video" />
+        </EntityType>
+        <EntityType Name="study">
+          <Key>
+            <PropertyRef Name="studyId" />
+          </Key>
+          <Property Name="studyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="studyName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="patientId" Type="Int32" Nullable="false" />
+          <Property Name="TimeStamp" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="patient" Relationship="Self.FK__study__patientId__412EB0B6" FromRole="study" ToRole="patient" />
+          <NavigationProperty Name="series" Relationship="Self.FK__series__studyId__440B1D61" FromRole="study" ToRole="series" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="firstName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="lastName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="roleId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="role" Relationship="Self.FK__users__roleId__3E52440B" FromRole="users" ToRole="role" />
+        </EntityType>
+        <EntityType Name="video">
+          <Key>
+            <PropertyRef Name="videoId" />
+          </Key>
+          <Property Name="videoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="videoName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="seriesId" Type="Int32" Nullable="false" />
+          <Property Name="TimeStamp" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="series" Relationship="Self.FK__video__seriesId__49C3F6B7" FromRole="video" ToRole="series" />
+        </EntityType>
+        <Association Name="FK__image__seriesId__46E78A0C">
+          <End Role="series" Type="Self.series" Multiplicity="1" />
+          <End Role="image" Type="Self.image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="series">
+              <PropertyRef Name="seriesId" />
+            </Principal>
+            <Dependent Role="image">
+              <PropertyRef Name="seriesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__study__patientId__412EB0B6">
+          <End Role="patient" Type="Self.patient" Multiplicity="1" />
+          <End Role="study" Type="Self.study" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="patient">
+              <PropertyRef Name="patientId" />
+            </Principal>
+            <Dependent Role="study">
+              <PropertyRef Name="patientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__report__seriesId__4CA06362">
+          <End Role="series" Type="Self.series" Multiplicity="1" />
+          <End Role="report" Type="Self.report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="series">
+              <PropertyRef Name="seriesId" />
+            </Principal>
+            <Dependent Role="report">
+              <PropertyRef Name="seriesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__users__roleId__3E52440B">
+          <End Role="role" Type="Self.role" Multiplicity="1" />
+          <End Role="users" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="role">
+              <PropertyRef Name="roleId" />
+            </Principal>
+            <Dependent Role="users">
+              <PropertyRef Name="roleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__series__studyId__440B1D61">
+          <End Role="study" Type="Self.study" Multiplicity="1" />
+          <End Role="series" Type="Self.series" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="study">
+              <PropertyRef Name="studyId" />
+            </Principal>
+            <Dependent Role="series">
+              <PropertyRef Name="studyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__video__seriesId__49C3F6B7">
+          <End Role="series" Type="Self.series" Multiplicity="1" />
+          <End Role="video" Type="Self.video" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="series">
+              <PropertyRef Name="seriesId" />
+            </Principal>
+            <Dependent Role="video">
+              <PropertyRef Name="seriesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GETProjctEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="images" EntityType="Self.image" />
+          <EntitySet Name="patients" EntityType="Self.patient" />
+          <EntitySet Name="reports" EntityType="Self.report" />
+          <EntitySet Name="roles" EntityType="Self.role" />
+          <EntitySet Name="series" EntityType="Self.series" />
+          <EntitySet Name="studies" EntityType="Self.study" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="users" EntityType="Self.user" />
+          <EntitySet Name="videos" EntityType="Self.video" />
+          <AssociationSet Name="FK__image__seriesId__46E78A0C" Association="Self.FK__image__seriesId__46E78A0C">
+            <End Role="series" EntitySet="series" />
+            <End Role="image" EntitySet="images" />
+          </AssociationSet>
+          <AssociationSet Name="FK__study__patientId__412EB0B6" Association="Self.FK__study__patientId__412EB0B6">
+            <End Role="patient" EntitySet="patients" />
+            <End Role="study" EntitySet="studies" />
+          </AssociationSet>
+          <AssociationSet Name="FK__report__seriesId__4CA06362" Association="Self.FK__report__seriesId__4CA06362">
+            <End Role="series" EntitySet="series" />
+            <End Role="report" EntitySet="reports" />
+          </AssociationSet>
+          <AssociationSet Name="FK__users__roleId__3E52440B" Association="Self.FK__users__roleId__3E52440B">
+            <End Role="role" EntitySet="roles" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
+          <AssociationSet Name="FK__series__studyId__440B1D61" Association="Self.FK__series__studyId__440B1D61">
+            <End Role="study" EntitySet="studies" />
+            <End Role="series" EntitySet="series" />
+          </AssociationSet>
+          <AssociationSet Name="FK__video__seriesId__49C3F6B7" Association="Self.FK__video__seriesId__49C3F6B7">
+            <End Role="series" EntitySet="series" />
+            <End Role="video" EntitySet="videos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GETProjctModelStoreContainer" CdmEntityContainer="GETProjctEntities">
+          <EntitySetMapping Name="images">
+            <EntityTypeMapping TypeName="GETProjctModel.image">
+              <MappingFragment StoreEntitySet="image">
+                <ScalarProperty Name="imageId" ColumnName="imageId" />
+                <ScalarProperty Name="imageName" ColumnName="imageName" />
+                <ScalarProperty Name="seriesId" ColumnName="seriesId" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="patients">
+            <EntityTypeMapping TypeName="GETProjctModel.patient">
+              <MappingFragment StoreEntitySet="patient">
+                <ScalarProperty Name="patientId" ColumnName="patientId" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="reports">
+            <EntityTypeMapping TypeName="GETProjctModel.report">
+              <MappingFragment StoreEntitySet="report">
+                <ScalarProperty Name="reportId" ColumnName="reportId" />
+                <ScalarProperty Name="reportName" ColumnName="reportName" />
+                <ScalarProperty Name="seriesId" ColumnName="seriesId" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="roles">
+            <EntityTypeMapping TypeName="GETProjctModel.role">
+              <MappingFragment StoreEntitySet="role">
+                <ScalarProperty Name="roleId" ColumnName="roleId" />
+                <ScalarProperty Name="roleName" ColumnName="roleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="series">
+            <EntityTypeMapping TypeName="GETProjctModel.series">
+              <MappingFragment StoreEntitySet="series">
+                <ScalarProperty Name="seriesId" ColumnName="seriesId" />
+                <ScalarProperty Name="seriesName" ColumnName="seriesName" />
+                <ScalarProperty Name="studyId" ColumnName="studyId" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="studies">
+            <EntityTypeMapping TypeName="GETProjctModel.study">
+              <MappingFragment StoreEntitySet="study">
+                <ScalarProperty Name="studyId" ColumnName="studyId" />
+                <ScalarProperty Name="studyName" ColumnName="studyName" />
+                <ScalarProperty Name="patientId" ColumnName="patientId" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="GETProjctModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="GETProjctModel.user">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="roleId" ColumnName="roleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="videos">
+            <EntityTypeMapping TypeName="GETProjctModel.video">
+              <MappingFragment StoreEntitySet="video">
+                <ScalarProperty Name="videoId" ColumnName="videoId" />
+                <ScalarProperty Name="videoName" ColumnName="videoName" />
+                <ScalarProperty Name="seriesId" ColumnName="seriesId" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

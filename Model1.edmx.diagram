@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a383ee0ac2334115ad7e228e68541c4c" Name="Diagram1">
+        <EntityTypeShape EntityType="GETProjctModel.image" Width="1.5" PointX="7.5" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GETProjctModel.patient" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GETProjctModel.report" Width="1.5" PointX="7.5" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GETProjctModel.role" Width="1.5" PointX="0.75" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GETProjctModel.series" Width="1.5" PointX="5.25" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GETProjctModel.study" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GETProjctModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GETProjctModel.user" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="GETProjctModel.video" Width="1.5" PointX="7.5" PointY="6.625" IsExpanded="true" />
+        <AssociationConnector Association="GETProjctModel.FK__image__seriesId__46E78A0C" ManuallyRouted="false" />
+        <AssociationConnector Association="GETProjctModel.FK__study__patientId__412EB0B6" ManuallyRouted="false" />
+        <AssociationConnector Association="GETProjctModel.FK__report__seriesId__4CA06362" ManuallyRouted="false" />
+        <AssociationConnector Association="GETProjctModel.FK__users__roleId__3E52440B" ManuallyRouted="false" />
+        <AssociationConnector Association="GETProjctModel.FK__series__studyId__440B1D61" ManuallyRouted="false" />
+        <AssociationConnector Association="GETProjctModel.FK__video__seriesId__49C3F6B7" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
